@@ -1,0 +1,30 @@
+# API & backend
+fastapi
+uvicorn[standard]
+websockets
+python-dotenv
+pydantic
+
+# AI orchestration
+langgraph
+langchain-core
+langchain-groq
+
+# Database
+aiosqlite
+
+# Geo & data simulation
+geopy
+faker
+requests
+
+# Network graph
+networkx
+pyvis
+
+# Dashboard & charts
+streamlit
+plotly
+
+# Utilities
+httpx

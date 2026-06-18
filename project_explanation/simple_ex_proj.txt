@@ -1,0 +1,55 @@
+Here is the simplest way to understand this entire project.
+
+Imagine you are building a virtual security guard for a bank.
+
+Instead of having humans manually check thousands of transactions, you are building an automated system that uses math to catch obvious criminals, and AI to debate the tricky cases. Everything happens instantly and shows up on a cool dashboard.
+
+Here is what the project does, broken down into plain English:
+
+1. The Setup: The Fake Bank (Simulator)
+You don't have real bank data, so you write a script that acts like a busy bank. Every 3 seconds, it spits out a fake transaction (e.g., John bought a $5 coffee, Sarah transferred $9,900). Most are normal, but it secretly sneaks in a few crimes for your system to catch.
+
+2. The Math Detectives (Fast & Free Checks)
+Before using expensive AI, the system runs three simple math checks on every transaction:
+
+The Teleportation Check (Geo-Velocity): If someone logs in from London, and 10 minutes later tries to withdraw money in Mumbai, the system calculates the speed. If it requires flying at 40,000 km/h, it’s physically impossible. Flagged.
+
+The Sneaky Amount Check (Structuring): Criminals know that sending $10,000 triggers an IRS alarm. So, they send $9,900 instead. Your system flags any amount hovering right below that limit.
+
+The "Out of Character" Check (Behavioral): The system remembers user habits. If a user normally spends $50 a week and suddenly tries to wire $45,000, the system realizes this breaks their personal pattern. Flagged.
+
+3. The Grading System (Risk Score)
+Instead of just saying "Yes" or "No" to fraud, the system gives every transaction a grade from 0 to 100.
+
+Teleporting adds 40 points.
+
+Sneaky amounts add 35 points.
+
+If the score stays under 30, it's green (safe). If it goes over 60, it's red (danger).
+
+4. The Courtroom (The AI Debate)
+This is the coolest part of the project. If a transaction gets a high risk score, the system pauses and calls in three AI agents to hold a mini-trial:
+
+The Prosecutor AI: Argues why this is definitely money laundering.
+
+The Defense AI: Argues why this might be an innocent mistake (e.g., "Maybe they are just on vacation!").
+
+The Judge AI: Listens to both sides and makes the final decision.
+
+5. The Control Room (The Dashboard & Visuals)
+You build a web page that updates instantly (using WebSockets, which just means you never have to hit the "refresh" button).
+
+You see a live feed of the money moving.
+
+You see the AI agents arguing in real-time.
+
+The Spiderweb (Fraud Ring Graph): If three different people are secretly working together to move dirty money, the system automatically draws lines connecting them on the screen, exposing the criminal gang.
+
+6. How You Prove It Works (Testing)
+To show this works in an interview, you just force the simulator to commit a crime.
+
+You force it to send a transaction from London and Mumbai at the same time, and watch the math catch it.
+
+You force it to send three $3,200 payments in a row, and watch the Spiderweb graph connect the criminals.
+
+In short: You are building a fake bank that streams data, runs it through smart math filters, holds an AI courtroom trial for the suspicious ones, and puts the whole show on a beautiful live screen.
