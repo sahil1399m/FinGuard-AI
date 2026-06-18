@@ -1,55 +1,96 @@
-Here is the simplest way to understand this entire project.
+## FinGuard-AI: Multi-Agent Anti-Money Laundering System
 
-Imagine you are building a virtual security guard for a bank.
+Imagine a bank processing thousands of transactions every minute. Manually reviewing each transaction for suspicious activity is nearly impossible, so I built an AI-powered Anti-Money Laundering (AML) system that automatically identifies risky transactions, investigates them, and presents the results through a real-time dashboard.
 
-Instead of having humans manually check thousands of transactions, you are building an automated system that uses math to catch obvious criminals, and AI to debate the tricky cases. Everything happens instantly and shows up on a cool dashboard.
+### How the System Works
 
-Here is what the project does, broken down into plain English:
+Since real banking data is confidential, the project starts with a transaction simulator that continuously generates realistic banking transactions. Most transactions are legitimate, while some are intentionally designed to mimic common money laundering patterns.
 
-1. The Setup: The Fake Bank (Simulator)
-You don't have real bank data, so you write a script that acts like a busy bank. Every 3 seconds, it spits out a fake transaction (e.g., John bought a $5 coffee, Sarah transferred $9,900). Most are normal, but it secretly sneaks in a few crimes for your system to catch.
+Before involving AI, every transaction passes through a set of rule-based fraud detection modules.
 
-2. The Math Detectives (Fast & Free Checks)
-Before using expensive AI, the system runs three simple math checks on every transaction:
+#### Geo-Velocity Analysis
 
-The Teleportation Check (Geo-Velocity): If someone logs in from London, and 10 minutes later tries to withdraw money in Mumbai, the system calculates the speed. If it requires flying at 40,000 km/h, it’s physically impossible. Flagged.
+The system checks whether a user's location changes unrealistically within a short period. For example, if someone performs a transaction in London and then appears to transact from Mumbai a few minutes later, the system recognizes that such travel is physically impossible and flags the activity.
 
-The Sneaky Amount Check (Structuring): Criminals know that sending $10,000 triggers an IRS alarm. So, they send $9,900 instead. Your system flags any amount hovering right below that limit.
+#### Structuring Detection
 
-The "Out of Character" Check (Behavioral): The system remembers user habits. If a user normally spends $50 a week and suddenly tries to wire $45,000, the system realizes this breaks their personal pattern. Flagged.
+Money launderers often avoid regulatory reporting thresholds by splitting large amounts into smaller transfers. The system identifies transactions that consistently occur just below reporting limits and marks them as suspicious.
 
-3. The Grading System (Risk Score)
-Instead of just saying "Yes" or "No" to fraud, the system gives every transaction a grade from 0 to 100.
+#### Behavioral Analysis
 
-Teleporting adds 40 points.
+Each user develops a spending profile over time. If someone who typically makes small transactions suddenly initiates a very large transfer, the system detects this deviation and raises the risk level.
 
-Sneaky amounts add 35 points.
+### Risk Scoring Engine
 
-If the score stays under 30, it's green (safe). If it goes over 60, it's red (danger).
+Rather than simply classifying transactions as fraudulent or legitimate, the system assigns a risk score between 0 and 100.
 
-4. The Courtroom (The AI Debate)
-This is the coolest part of the project. If a transaction gets a high risk score, the system pauses and calls in three AI agents to hold a mini-trial:
+Each suspicious pattern contributes to the final score:
 
-The Prosecutor AI: Argues why this is definitely money laundering.
+* Geo-velocity anomalies increase the score.
+* Structuring behavior increases the score.
+* Behavioral abnormalities increase the score.
 
-The Defense AI: Argues why this might be an innocent mistake (e.g., "Maybe they are just on vacation!").
+Based on the final score, transactions are categorized into low, medium, or high-risk groups.
 
-The Judge AI: Listens to both sides and makes the final decision.
+### Multi-Agent AI Investigation
 
-5. The Control Room (The Dashboard & Visuals)
-You build a web page that updates instantly (using WebSockets, which just means you never have to hit the "refresh" button).
+For transactions that exceed the risk threshold, the system launches a multi-agent investigation process using LangGraph.
 
-You see a live feed of the money moving.
+Three specialized AI agents participate:
 
-You see the AI agents arguing in real-time.
+**Prosecution Agent**
 
-The Spiderweb (Fraud Ring Graph): If three different people are secretly working together to move dirty money, the system automatically draws lines connecting them on the screen, exposing the criminal gang.
+* Examines evidence supporting money laundering.
+* Highlights suspicious patterns and risk indicators.
 
-6. How You Prove It Works (Testing)
-To show this works in an interview, you just force the simulator to commit a crime.
+**Defense Agent**
 
-You force it to send a transaction from London and Mumbai at the same time, and watch the math catch it.
+* Looks for legitimate explanations.
+* Considers alternative interpretations of the transaction.
 
-You force it to send three $3,200 payments in a row, and watch the Spiderweb graph connect the criminals.
+**Judge Agent**
 
-In short: You are building a fake bank that streams data, runs it through smart math filters, holds an AI courtroom trial for the suspicious ones, and puts the whole show on a beautiful live screen.
+* Reviews arguments from both sides.
+* Delivers the final verdict along with reasoning.
+
+This approach makes the investigation process more transparent and explainable compared to a single AI model making decisions independently.
+
+### Network Analysis
+
+Money laundering often involves groups of connected accounts rather than isolated transactions.
+
+The system builds a transaction network graph where:
+
+* Nodes represent accounts.
+* Edges represent money transfers.
+
+By visualizing transaction relationships, the system can identify suspicious clusters, hidden connections, and potential laundering rings that may not be obvious from individual transactions alone.
+
+### Real-Time Dashboard
+
+A Streamlit dashboard provides a live view of the entire system.
+
+Users can:
+
+* Monitor incoming transactions.
+* View risk scores.
+* Observe AI agent reasoning.
+* Analyze fraud alerts.
+* Explore transaction network visualizations.
+
+The dashboard updates continuously, creating a real-time monitoring experience similar to what financial investigators use.
+
+### Technology Stack
+
+* Python
+* FastAPI
+* Streamlit
+* LangGraph
+* Groq LLM
+* SQLite / PostgreSQL
+* NetworkX
+* WebSockets
+
+### Key Outcome
+
+The project combines traditional rule-based fraud detection with AI-driven investigation. Instead of only identifying suspicious transactions, it explains why they are suspicious, provides multiple perspectives through AI agents, and visualizes transaction relationships to support financial crime investigations.
